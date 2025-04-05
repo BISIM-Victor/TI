@@ -1,12 +1,14 @@
-FROM eclipse-temurin:17-jdk
+# Usa una imagen oficial de Tomcat con JDK 8
+FROM tomcat:9.0-jdk8
 
-WORKDIR /app
+# Borra las aplicaciones por defecto
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copia todo tu código primero
-COPY . .
+# Copia tu archivo WAR al directorio de despliegue de Tomcat
+COPY target/support.war /usr/local/tomcat/webapps/ROOT.war
 
-# Luego construye
-RUN chmod +x ./mvnw && ./mvnw clean package -DskipTests
+# Expone el puerto 8080
+EXPOSE 8080
 
-# Ejecuta tu jar
-CMD ["java", "-jar", "target/miapp.jar"]
+# Inicia Tomcat
+CMD ["catalina.sh", "run"]
