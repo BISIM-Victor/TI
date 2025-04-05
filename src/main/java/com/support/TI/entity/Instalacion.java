@@ -1,0 +1,22 @@
+package com.support.TI.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Getter
+@Setter
+@Entity
+public class Instalacion {
+
+    @Id
+    private Long instalacionid;
+    private Double costo;
+    private String estado;
+    private String fecha;
+    @ManyToOne
+    private Cliente cliente;
+}
